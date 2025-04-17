@@ -1,0 +1,18 @@
+[
+    {
+      "title": "Заголовок 1",
+      "text": "Текст новости 1",
+      "category": "Политика",
+      "tone": "positive",
+      "url": "https://example.com/news1",
+      "date": "2025-04-15T10:00:00Z"
+    },
+    {
+      "title": "Заголовок 2",
+      "text": "Текст новости 2",
+      "category": "Экономика",
+      "tone": "neutral",
+      "url": "https://example.com/news2",
+      "date": "2025-04-14T09:30:00Z"
+    }
+  ]
