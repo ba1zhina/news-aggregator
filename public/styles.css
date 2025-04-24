@@ -1,0 +1,296 @@
+:root {
+    --positive-color: #10B981;
+    --neutral-color: #F59E0B;
+    --negative-color: #EF4444;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    line-height: 1.6;
+    color: #1F2937;
+    background-color: #FFFFFF;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    text-align: center;
+    margin: auto;
+    transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.main-title {
+    font-size: 4rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.filters {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.filters.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.tone-filters {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.category-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.category-filters button {
+    padding: 8px 16px;
+    margin: 4px;
+    border: none;
+    border-radius: 4px;
+    background-color: #f0f0f0;
+    cursor: pointer;
+    white-space: nowrap;
+    min-width: fit-content;
+}
+
+button {
+    padding: 8px 16px;
+    margin: 4px;
+    border: none;
+    border-radius: 4px;
+    background-color: #f0f0f0;
+    cursor: pointer;
+    white-space: nowrap;
+    min-width: fit-content;
+}
+
+button:hover {
+    background-color: #E5E7EB;
+    transform: scale(1.05) translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+button.active {
+    background-color: #1F2937;
+    color: white;
+    transform: scale(1.05) translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.tone-btn.active[data-tone="positive"] {
+    background-color: var(--positive-color);
+    color: white;
+    transform: scale(1.05) translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.tone-btn.active[data-tone="neutral"] {
+    background-color: var(--neutral-color);
+    color: white;
+    transform: scale(1.05) translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.tone-btn.active[data-tone="negative"] {
+    background-color: var(--negative-color);
+    color: white;
+    transform: scale(1.05) translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.news-list {
+    display: none;
+    flex-direction: column;
+    gap: 2rem;
+    transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+    max-width: 800px;
+    margin: 0 auto;
+    width: 100%;
+    opacity: 0;
+    transform: translateY(50px);
+}
+
+.news-list.visible {
+    display: flex;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.news-item {
+    background-color: white;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.news-list.visible .news-item {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.news-list.visible .news-item:nth-child(1) { transition-delay: 0.2s; }
+.news-list.visible .news-item:nth-child(2) { transition-delay: 0.4s; }
+.news-list.visible .news-item:nth-child(3) { transition-delay: 0.6s; }
+.news-list.visible .news-item:nth-child(4) { transition-delay: 0.8s; }
+.news-list.visible .news-item:nth-child(5) { transition-delay: 1.0s; }
+
+.news-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.news-item h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.news-item .meta {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    font-size: 0.875rem;
+    color: #6B7280;
+}
+
+.news-item .tone {
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+}
+
+.news-item .tone.positive {
+    background-color: var(--positive-color);
+    color: white;
+}
+
+.news-item .tone.neutral {
+    background-color: var(--neutral-color);
+    color: white;
+}
+
+.news-item .tone.negative {
+    background-color: var(--negative-color);
+    color: white;
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.modal.visible {
+    display: block;
+    opacity: 1;
+}
+
+.modal-content {
+    position: relative;
+    background-color: white;
+    margin: 5% auto;
+    padding: 2rem;
+    width: 80%;
+    max-width: 800px;
+    border-radius: 0.5rem;
+    max-height: 80vh;
+    overflow-y: auto;
+    transform: translateY(50px);
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.modal.visible .modal-content {
+    transform: translateY(0);
+}
+
+.close {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.close:hover {
+    transform: scale(1.1);
+}
+
+.modal-meta {
+    display: flex;
+    gap: 1rem;
+    margin: 1rem 0;
+    font-size: 0.875rem;
+    color: #6B7280;
+}
+
+#modalUrl {
+    display: inline-block;
+    margin-top: 1rem;
+    color: #3B82F6;
+    text-decoration: none;
+    transition: color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#modalUrl:hover {
+    text-decoration: underline;
+    color: #2563EB;
+}
+
+/* Animation classes */
+.header-collapsed .main-title {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.header-collapsed .filters {
+    margin-bottom: 1rem;
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* When filters are selected, move header to top */
+.header-collapsed {
+    margin: 0;
+    padding-top: 2rem;
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+} 

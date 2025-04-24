@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Новостной агрегатор</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 class="main-title">WHAT'S NEW</h1>
+            <div class="filters">
+                <div class="tone-filters">
+                    <button class="tone-btn" data-tone="positive">Позитивные</button>
+                    <button class="tone-btn" data-tone="neutral">Нейтральные</button>
+                    <button class="tone-btn" data-tone="negative">Негативные</button>
+                </div>
+                <div class="category-filters">
+                    <!-- Categories will be loaded dynamically -->
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <div class="news-list" id="newsList">
+                <!-- News items will be loaded dynamically -->
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal" id="newsModal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modalTitle"></h2>
+            <div class="modal-meta">
+                <span id="modalCategory"></span>
+                <span id="modalTone"></span>
+                <span id="modalDate"></span>
+            </div>
+            <p id="modalText"></p>
+            <a id="modalUrl" target="_blank">Читать оригинал</a>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html> 

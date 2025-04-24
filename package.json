@@ -1,0 +1,28 @@
+{
+  "name": "news-filter-app",
+  "version": "1.0.0",
+  "description": "News classification and filtering application",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "parse": "node parse_and_classify.js",
+    "load-csv": "node csv_loader.js",
+    "parse-telegram": "node parse_telegram.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongodb": "^6.3.0",
+    "rss-parser": "^3.13.0",
+    "cheerio": "^1.0.0-rc.12",
+    "axios": "^1.6.2",
+    "csv-parser": "^3.0.0",
+    "dotenv": "^16.3.1",
+    "cors": "^2.8.5",
+    "mongoose": "^8.0.3",
+    "telegram": "^2.19.10",
+    "input": "^1.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
