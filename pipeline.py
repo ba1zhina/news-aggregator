@@ -12,6 +12,10 @@ from pymongo.errors import DuplicateKeyError
 # Загрузка переменных окружения
 load_dotenv()
 
+
+import logging
+
+
 # Конфигурация
 API_ID = int(os.getenv('TELEGRAM_API_ID'))
 API_HASH = os.getenv('TELEGRAM_API_HASH')
@@ -97,8 +101,12 @@ async def get_channel_messages(client, channel_username, category_model, sentime
                     text_for_classification = text.replace('\n', ' ').strip()
                     
                     # Классификация текста
-                    category = category_model.predict(text_for_classification)[0][0].replace('__label__', '').replace('_', ' ')
-                    sentiment = sentiment_model.predict(text_for_classification)[0][0].replace('__label__', '').replace('_', ' ')
+                    try:
+                        category = category_model.predict(text_for_classification)[0][0].replace('__label__', '').replace('_', ' ')
+                        sentiment = sentiment_model.predict(text_for_classification)[0][0].replace('__label__', '').replace('_', ' ')
+                    except Exception as e:
+                        print(f"Ошибка классификации текста: {e}")
+                        continue 
                     
                     # Подготовка документа для MongoDB
                     news_doc = {
@@ -138,12 +146,25 @@ async def get_channel_messages(client, channel_username, category_model, sentime
 
 async def run_pipeline():
     print("Запуск пайплайна...")
+
+    logging.basicConfig(level=logging.INFO)
+    logger = logging.getLogger(__name__)
+
+    logger.info("Запуск пайплайна...")
+    logger.error(f"Ошибка: {e}")
+
     print(f"Период парсинга: с {START_DATE.strftime('%Y-%m-%d %H:%M:%S')} по {END_DATE.strftime('%Y-%m-%d %H:%M:%S')}")
     
     # Загрузка моделей FastText
     print("Загрузка моделей классификации...")
     category_model = fasttext.load_model(CATEGORY_MODEL_PATH)
     sentiment_model = fasttext.load_model(SENTIMENT_MODEL_PATH)
+
+    if not os.path.exists(CATEGORY_MODEL_PATH):
+        raise FileNotFoundError(f"Модель категории не найдена по пути {CATEGORY_MODEL_PATH}")
+    
+    if not os.path.exists(SENTIMENT_MODEL_PATH):
+        raise FileNotFoundError(f"Модель тональности не найдена по пути {SENTIMENT_MODEL_PATH}")
     
     # Подключение к MongoDB
     print("Подключение к MongoDB...")
@@ -178,6 +199,12 @@ async def run_pipeline():
         
     except Exception as e:
         print(f"Ошибка в пайплайне: {str(e)}")
+
+    except asyncio.CancelledError:
+        print("Пайплайн был остановлен пользователем")
+        await client.disconnect()
+        mongo_client.close()
+        raise
     
     finally:
         await client.disconnect()
@@ -186,3 +213,4 @@ async def run_pipeline():
 
 if __name__ == '__main__':
     asyncio.run(run_pipeline()) 
+

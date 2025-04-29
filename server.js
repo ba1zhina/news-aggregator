@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const path = require('path');
+const { ObjectId } = require('mongodb');
 
 const app = express();
 
@@ -65,12 +66,34 @@ app.get('/api/categories', async (req, res) => {
   }
 });
 
+// Обновление новости
+app.patch('/api/news/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { category, tone } = req.body;
+        
+        const result = await News.updateOne(
+            { _id: new ObjectId(id) },
+            { $set: { category, tone } }
+        );
+        
+        if (result.matchedCount === 0) {
+            return res.status(404).json({ error: 'Новость не найдена' });
+        }
+        
+        res.json({ success: true });
+    } catch (error) {
+        console.error('Error updating news:', error);
+        res.status(500).json({ error: 'Ошибка при обновлении новости' });
+    }
+});
+
 // Serve frontend
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 }); 
